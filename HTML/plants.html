@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plants</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 10px;
+            padding: 10px;
+        }
+        
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        li 
+        {
+            display: inline;
+            float: left;
+        }
+        a 
+        {
+            display: block;
+            padding: 8px;
+            background-color: #dddddd;
+        }
+        ul 
+        {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+          
+        li 
+        {
+            float: left;
+        }
+          
+        li a 
+        {
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+          
+          /* Change the link color to #111 (black) on hover */
+        li a:hover 
+        {
+            background-color: #111;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .product img {
+            max-width: 100%;
+        }
+        
+        .product h2 {
+            font-size: 20px;
+        }
+        
+        .product p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Nav section -->
+    <nav class="nav-parent">
+        <ul >
+            <li><a href="home">Home</a></li>
+            <li><a href="plants">Plants</a></li>
+            <li><a href="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- Plants Section -->
+
+    <div class="container" id="plantView">
+    </div>
+
+
+    <!-- Footer Section -->
+
+    <footer style="background-color: #333; color: white; text-align: center; padding: 10px;">
+        &copy; 2023 Plant Shop
+    </footer>
+
+    <script>
+
+        const load_all_plants=()=>
+        {   
+            fetch('http://localhost:3000/get/plants')
+            .then((res)=>res.json())
+            .then((data)=>
+            {
+                const all_plants=data?.plants;
+
+                all_plants.forEach(plant => {
+                    const item=document.createElement('div');
+                    item.innerHTML=
+                    `<div class="product">
+                        <h2>${plant.name}</h2>
+                        <p>Price: ${plant.price}</p>
+                    </div>`;
+                    document.getElementById('plantView').appendChild(item);
+                });
+            });
+        }
+
+        load_all_plants();
+    </script>
+</body>
+</html>
